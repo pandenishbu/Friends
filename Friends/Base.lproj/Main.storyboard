@@ -1,24 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ProfileViewController" customModule="Friends" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="33q-IL-o5P">
+                                <rect key="frame" x="16" y="36" width="288" height="288"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="33q-IL-o5P" secondAttribute="height" multiplier="1:1" id="dIB-Nf-G5m"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Александр Федоров" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="26" translatesAutoresizingMaskIntoConstraints="NO" id="lkH-6u-rkp">
+                                <rect key="frame" x="16" y="332" width="288" height="35"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="👨‍💻Люблю программировать под iOS 👨‍🎓Изучать новые технологии  👨‍🏫Помогаю развиваться другим" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="e9y-ZI-jj6">
+                                <rect key="frame" x="16" y="375" width="288" height="113.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ty-bw-Ah6" customClass="DesignableButton" customModule="Friends" customModuleProvider="target">
+                                <rect key="frame" x="16" y="508" width="288" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="QF4-uy-DX7"/>
+                                </constraints>
+                                <state key="normal" title="Редактировать">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-gr-gPk" customClass="DesignableButton" customModule="Friends" customModuleProvider="target">
+                                <rect key="frame" x="204" y="224" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dXI-gr-gPk" secondAttribute="height" multiplier="1:1" id="e1k-Xf-F3r"/>
+                                    <constraint firstAttribute="width" constant="100" id="quO-DG-ecY"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="25" minY="25" maxX="25" maxY="25"/>
+                                <state key="normal" image="slr-camera-2-xxl"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="AddPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aih-Bl-MVb"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lkH-6u-rkp" firstAttribute="top" secondItem="33q-IL-o5P" secondAttribute="bottom" constant="8" id="795-a7-e4e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lkH-6u-rkp" secondAttribute="trailing" constant="16" id="7su-WF-0db"/>
+                            <constraint firstItem="33q-IL-o5P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="8aQ-Us-DYC"/>
+                            <constraint firstItem="33q-IL-o5P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ati-BJ-RZO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Ty-bw-Ah6" secondAttribute="bottom" constant="16" id="GHU-K2-jZG"/>
+                            <constraint firstItem="lkH-6u-rkp" firstAttribute="top" secondItem="dXI-gr-gPk" secondAttribute="bottom" constant="8" id="IMK-Ru-4Pl"/>
+                            <constraint firstItem="e9y-ZI-jj6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JD4-PW-cVS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Ty-bw-Ah6" secondAttribute="trailing" constant="16" id="K0s-Jb-CCD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="33q-IL-o5P" secondAttribute="trailing" constant="16" id="LbZ-SI-0ZW"/>
+                            <constraint firstItem="6Ty-bw-Ah6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="e9y-ZI-jj6" secondAttribute="bottom" constant="8" id="Nzn-0i-XTj"/>
+                            <constraint firstItem="6Ty-bw-Ah6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="aGt-KJ-LQg"/>
+                            <constraint firstItem="lkH-6u-rkp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bws-Nj-Hza"/>
+                            <constraint firstItem="e9y-ZI-jj6" firstAttribute="top" secondItem="lkH-6u-rkp" secondAttribute="bottom" constant="8" id="e7A-6h-WB7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dXI-gr-gPk" secondAttribute="trailing" constant="16" id="j6f-NI-KZH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e9y-ZI-jj6" secondAttribute="trailing" constant="16" id="xn4-5c-ZSs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="avatarImg" destination="33q-IL-o5P" id="Kmd-tQ-XOV"/>
+                        <outlet property="editButton" destination="6Ty-bw-Ah6" id="8Mt-Ww-zHT"/>
+                        <outlet property="photoButton" destination="dXI-gr-gPk" id="ELz-Du-Ubz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="75" y="32.74647887323944"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="placeholder-user" width="600" height="600"/>
+        <image name="slr-camera-2-xxl" width="256" height="256"/>
+    </resources>
 </document>
