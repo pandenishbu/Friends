@@ -13,6 +13,7 @@ import Photos
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var avatarImg: UIImageView!
     @IBOutlet weak var editButton: DesignableButton!
     @IBOutlet weak var photoButton: DesignableButton!
@@ -43,6 +44,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         log.VCLogger(message: " frame:  \(String(describing: editButton?.frame)) ")
         //Frame кнопки уже непосредственно устройства, тк метод viewDidAppear вызывается, когда ViewController уже появился на экране после метода LayoutSubViews
+    }
+    
+    @IBAction func GoBack(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 
