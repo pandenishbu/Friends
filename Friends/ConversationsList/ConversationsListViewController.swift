@@ -8,15 +8,26 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, ThemesViewControllerDelegate {
+    
+    
+    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+        logThemeChanging(selectedTheme: selectedTheme)
+        UINavigationBar.appearance().barTintColor = selectedTheme
+        self.navigationController?.navigationBar.barTintColor = selectedTheme
+        let defaults = UserDefaults.standard
+        let colorData:NSData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme) as NSData
+        defaults.set(colorData, forKey: "Theme")
+    }
+    
 
     @IBOutlet weak var convTable: UITableView!
+    @IBOutlet var themeButton: UIBarButtonItem!
     
     var selectedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationController?.navigationBar.topItem?.title = "Tinkoff Chat"
         
         convTable.dataSource = self
@@ -29,6 +40,20 @@ class ConversationsListViewController: UIViewController {
         
 
     }
+    
+    @IBAction func changeTheme(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Themes", bundle: nil)
+        let navController = storyboard.instantiateViewController(withIdentifier: "NavThemesViewController") as! UINavigationController
+        let themesViewController = navController.topViewController as! ThemesViewController
+        themesViewController.delegate = self
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    func logThemeChanging(selectedTheme: UIColor) {
+        let log = Log()
+        log.VCLogger(message: " UIColor:  \(selectedTheme) ")
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToConversation"{
@@ -43,7 +68,15 @@ class ConversationsListViewController: UIViewController {
                 conversation = onlineConv[(selectedIndexPath?.row)!]
                 VC?.name = conversation.0
             }
-    }
+        }
+        else if segue.identifier == "Profile" {
+            
+        }
+        else {
+            let navigationContoller = segue.destination as! UINavigationController
+            let themesViewController = navigationContoller.topViewController as! ThemesViewController
+            themesViewController.delegate = self
+        }
     }
     
 }

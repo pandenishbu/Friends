@@ -25,6 +25,9 @@
 		05E4E40922247AD2001E7B0F /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E4E40722247AD2001E7B0F /* ConversationTableViewCell.xib */; };
 		05E4E40D22248145001E7B0F /* ConversationTableViewMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E4E40C22248145001E7B0F /* ConversationTableViewMyCell.xib */; };
 		05E4E40F222482C8001E7B0F /* ConvData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4E40E222482C7001E7B0F /* ConvData.swift */; };
+		05F9B19B222C05D500886784 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F9B19A222C05D500886784 /* ThemesViewController.m */; };
+		05F9B19F222C081F00886784 /* Themes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05F9B19E222C081F00886784 /* Themes.storyboard */; };
+		05F9B1A2222F13F400886784 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F9B1A1222F13F400886784 /* Themes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,13 @@
 		05E4E40722247AD2001E7B0F /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		05E4E40C22248145001E7B0F /* ConversationTableViewMyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewMyCell.xib; sourceTree = "<group>"; };
 		05E4E40E222482C7001E7B0F /* ConvData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvData.swift; sourceTree = "<group>"; };
+		05F9B198222C05D400886784 /* Friends-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Friends-Bridging-Header.h"; sourceTree = "<group>"; };
+		05F9B199222C05D500886784 /* ThemesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
+		05F9B19A222C05D500886784 /* ThemesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
+		05F9B19D222C073400886784 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		05F9B19E222C081F00886784 /* Themes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Themes.storyboard; sourceTree = "<group>"; };
+		05F9B1A0222C0D7600886784 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
+		05F9B1A1222F13F400886784 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +117,7 @@
 				057397DB2219C2F9008EBAB0 /* DesignableButton.swift */,
 				05A89440222345A10053B42D /* Profile */,
 				05A8943F222345900053B42D /* ConversationsList */,
+				05F9B19C222C05DC00886784 /* Themes */,
 				05E4E40322247A96001E7B0F /* Conversation */,
 				055004F02211F5EF00DBD501 /* Assets.xcassets */,
 				055004F22211F5EF00DBD501 /* LaunchScreen.storyboard */,
@@ -147,6 +158,7 @@
 		05E4E40322247A96001E7B0F /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				05F9B198222C05D400886784 /* Friends-Bridging-Header.h */,
 				05E4E40422247ABA001E7B0F /* ConversationViewController.swift */,
 				05E4E40E222482C7001E7B0F /* ConvData.swift */,
 				05E4E40622247AD2001E7B0F /* ConversationTableViewCell.swift */,
@@ -154,6 +166,19 @@
 				05E4E40722247AD2001E7B0F /* ConversationTableViewCell.xib */,
 			);
 			path = Conversation;
+			sourceTree = "<group>";
+		};
+		05F9B19C222C05DC00886784 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				05F9B199222C05D500886784 /* ThemesViewController.h */,
+				05F9B19A222C05D500886784 /* ThemesViewController.m */,
+				05F9B19D222C073400886784 /* Themes.h */,
+				05F9B1A1222F13F400886784 /* Themes.m */,
+				05F9B19E222C081F00886784 /* Themes.storyboard */,
+				05F9B1A0222C0D7600886784 /* ThemesViewControllerDelegate.h */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +231,7 @@
 				TargetAttributes = {
 					055004E22211F5ED00DBD501 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					055004F92211F5EF00DBD501 = {
 						CreatedOnToolsVersion = 10.1;
@@ -241,6 +267,7 @@
 				05E4E40922247AD2001E7B0F /* ConversationTableViewCell.xib in Resources */,
 				05A89446222347B60053B42D /* ConversationsListCell.xib in Resources */,
 				055004F42211F5EF00DBD501 /* LaunchScreen.storyboard in Resources */,
+				05F9B19F222C081F00886784 /* Themes.storyboard in Resources */,
 				055004F12211F5EF00DBD501 /* Assets.xcassets in Resources */,
 				055004EC2211F5ED00DBD501 /* Main.storyboard in Resources */,
 			);
@@ -262,10 +289,12 @@
 			files = (
 				05A89445222347B60053B42D /* ConversationsListCell.swift in Sources */,
 				057397DC2219C2F9008EBAB0 /* DesignableButton.swift in Sources */,
+				05F9B19B222C05D500886784 /* ThemesViewController.m in Sources */,
 				05E4E40522247ABA001E7B0F /* ConversationViewController.swift in Sources */,
 				05E4E40222246700001E7B0F /* ConversationsData.swift in Sources */,
 				05E4E40822247AD2001E7B0F /* ConversationTableViewCell.swift in Sources */,
 				05E4E40F222482C8001E7B0F /* ConvData.swift in Sources */,
+				05F9B1A2222F13F400886784 /* Themes.m in Sources */,
 				055004EF2211F5ED00DBD501 /* Friends.xcdatamodeld in Sources */,
 				0550050A2211FC0200DBD501 /* Log.swift in Sources */,
 				058A07462219BCD20043CFAB /* ProfileViewController.swift in Sources */,
@@ -432,6 +461,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ERBD2BEXKE;
 				INFOPLIST_FILE = Friends/Info.plist;
@@ -443,6 +474,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.Panda.Friends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Conversation/Friends-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -452,6 +485,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ERBD2BEXKE;
 				INFOPLIST_FILE = Friends/Info.plist;
@@ -462,6 +497,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.Panda.Friends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Conversation/Friends-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

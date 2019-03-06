@@ -19,6 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
        // log.AppDLogger(from: "not running", to: "foreground")
+
+        var theme = UIColor.white
+        let themeData = UserDefaults.standard.object(forKey: "Theme") as? Data ?? nil
+        if themeData != nil  {
+            do {
+                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(themeData!) as? UIColor {
+                    theme = color
+                }
+            } catch {
+                print("Couldn't read file.")
+            }
+        }
+        
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = theme
+
         return true
     }
 
