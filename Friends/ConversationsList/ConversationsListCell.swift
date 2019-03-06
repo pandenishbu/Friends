@@ -106,7 +106,7 @@ extension ConversationsListCell: ConversationsCellConfiguration {
         set {
             self.isOnline = newValue
             if newValue {
-                self.backgroundColor = UIColor.yellow
+                self.backgroundColor = UIColor(red: 255/255, green: 253/255, blue: 209/255, alpha: 1)
             } else {
                 self.backgroundColor = UIColor.white
             }

@@ -14,16 +14,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemesViewController : UIViewController {
-    id <ThemesViewControllerDelegate> delegate __weak;
-//    Themes *model;
+    id <ThemesViewControllerDelegate> _delegate;
+    Themes *_model;
     IBOutlet UIButton *button1;
     IBOutlet UIButton *button2;
     IBOutlet UIButton *button3;
     IBOutlet UIBarButtonItem *closeBarItem;
 }
 
-@property (nonatomic, weak)  id <ThemesViewControllerDelegate> delegate;
-@property (nonatomic, weak)  Themes *model;
+@property (nonatomic, assign)  id <ThemesViewControllerDelegate> delegate;
+@property (nonatomic, retain)  Themes *model;
 
 @end
 
