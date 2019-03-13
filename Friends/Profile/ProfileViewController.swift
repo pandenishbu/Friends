@@ -7,158 +7,63 @@
 //
 
 import UIKit
-import AVFoundation
-import Photos
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UINavigationControllerDelegate {
 
     
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var avatarImg: UIImageView!
     @IBOutlet weak var editButton: DesignableButton!
-    @IBOutlet weak var photoButton: DesignableButton!
-    let imagePickerController = UIImagePickerController()
+    @IBOutlet var photo: UIImageView!
+    @IBOutlet var name: UILabel!
+    @IBOutlet var descr: UILabel!
+    
     
     let log = Log()
+    var GCDData = GCDDataManager(name: "Александр Федоров", photo: "", description: "👨‍💻Люблю программировать под iOS 👨‍🎓Изучать новые технологии  👨‍🏫Помогаю развиваться другим")
    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         //print(editButton.frame)
-        log.VCLogger(message: "Unexpectedly found nil while unwrapping an Optional value")
-        //Кнопка "Регистрация" еще не инициализирована
+//        log.VCLogger(message: "Unexpectedly found nil while unwrapping an Optional value")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.imagePickerController.allowsEditing = true
-        self.imagePickerController.delegate = self
         
         log.VCLogger(message: " frame:  \(String(describing: editButton?.frame)) ")
-        //Frame кнопки из .storyboard
+        
+        GCDData.load(completionHandler: {txt1, txt2, txt3 in
+            DispatchQueue.main.async {
+                self.name.text = txt1
+                self.descr.text = txt3
+                let decodedData = NSData(base64Encoded: txt2, options: NSData.Base64DecodingOptions(rawValue: 0) )
+                let decodedimage = UIImage(data: decodedData! as Data)
+                self.avatarImg.image = decodedimage
+            }
+        })
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-        log.VCLogger(message: " frame:  \(String(describing: editButton?.frame)) ")
-        //Frame кнопки уже непосредственно устройства, тк метод viewDidAppear вызывается, когда ViewController уже появился на экране после метода LayoutSubViews
-    }
     
     @IBAction func GoBack(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
     
-
-    @IBAction func AddPhoto(_ sender: UIButton) {
-        print("Выбери изображение профиля")
-        addPhotoSheet()
-    }
     
-    func addPhotoSheet(){
-        let actionSheet = UIAlertController.init(title: "Выбери изображение профиля", message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction.init(title: "Сделать фото", style: UIAlertAction.Style.default, handler: {
-            (action) in
-            switch AVCaptureDevice.authorizationStatus(for: .video) {
-            case .denied:
-                print("Denied, request permission from settings")
-                self.presentCameraSettings()
-            case .restricted:
-                print("Restricted, device owner must approve")
-            case .authorized:
-                self.openCamera()
-            case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) { success in
-                    if success {
-                        self.openCamera()
-                    }
-                }
-            }
-        }))
-        actionSheet.addAction(UIAlertAction.init(title: "Установить из галлереи", style: UIAlertAction.Style.default, handler: {
-            (action) in
-            let status = PHPhotoLibrary.authorizationStatus()
-            switch status {
-                case .authorized:
-                    self.openPhotoLibrary()
-                case .denied, .restricted :
-                    print("Denied, request permission from settings")
-                    self.presentCameraSettings()
-                case .notDetermined:
-                    // ask for permissions
-                    PHPhotoLibrary.requestAuthorization { status in
-                        if status == .authorized {
-                            self.openPhotoLibrary()
-                        }
-                        else {
-                             self.presentCameraSettings()
-                        }
-                }
-            }
-        }))
-        actionSheet.addAction(UIAlertAction.init(title: "Отмена", style: UIAlertAction.Style.cancel, handler: { (action) in
-
-        }))
-        //Present the controller
-        self.present(actionSheet, animated: true, completion: nil)
-    }
+   
     
-    func openCamera(){
-        imagePickerController.sourceType = .camera
-        self.present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func openPhotoLibrary() {
-        imagePickerController.sourceType = .photoLibrary
-        self.present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-        {
-            avatarImg.image = img
-        }
-        else if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        {
-             avatarImg.image = img
-        }
-        
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-
-    
-
-    func presentCameraSettings() {
-        let alertController = UIAlertController(title: "Ошибка",
-                                                message: "Доступ к камере/галерее запрещен",
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Отменить", style: .default))
-        alertController.addAction(UIAlertAction(title: "Настройки", style: .cancel) { _ in
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: { _ in
-                    // Handle
-                })
-            }
-        })
-        
-        present(alertController, animated: true)
-    }
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.destination is EditProfileViewController{
+            let vc = segue.destination as? EditProfileViewController
+            vc?.GCDModel = GCDData
+        }
     }
-    */
+    
 
 }
