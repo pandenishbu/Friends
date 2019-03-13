@@ -38,9 +38,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
             DispatchQueue.main.async {
                 self.name.text = txt1
                 self.descr.text = txt3
-                let decodedData = NSData(base64Encoded: txt2, options: NSData.Base64DecodingOptions(rawValue: 0) )
-                let decodedimage = UIImage(data: decodedData! as Data)
-                self.avatarImg.image = decodedimage
+                if txt2 != "\r" {
+                    let decodedData = NSData(base64Encoded: txt2, options: NSData.Base64DecodingOptions(rawValue: 0) )
+                    let decodedimage = UIImage(data: decodedData! as Data)
+                    self.avatarImg.image = decodedimage
+                }
             }
         })
         
