@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = theme
-
+        
         return true
     }
 

@@ -24,10 +24,19 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
     @IBOutlet weak var convTable: UITableView!
     @IBOutlet var themeButton: UIBarButtonItem!
     
+    let communicationManager = CommunicationManager()
+    var multipeerCommunicator = MultipeerCommunicator()
+    
+    var onlineConv = [Conversation]()
+    var offlineConv = [Conversation]()
     var selectedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.multipeerCommunicator.delegate = self.communicationManager
+        self.multipeerCommunicator.online = true
+        
         self.navigationController?.navigationBar.topItem?.title = "Tinkoff Chat"
         
         convTable.dataSource = self
@@ -38,7 +47,9 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
         let nib = UINib(nibName: "ConversationsListCell", bundle: nil)
         convTable.register(nib, forCellReuseIdentifier: "Cell")
         
-
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.needReloadData, object: nil)
+        
+        reloadData()
     }
     
     @IBAction func changeTheme(_ sender: Any) {
@@ -54,19 +65,42 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
         log.VCLogger(message: " UIColor:  \(selectedTheme) ")
     }
     
+    @objc func reloadData() {
+        onlineConv = communicationManager.onlineConvs
+        offlineConv = communicationManager.offlineConvs
+        updateConversations(onlineConv)
+        updateConversations(offlineConv)
+
+        DispatchQueue.main.async {
+            self.convTable.reloadData()
+        }
+    }
+    
+    func updateConversations(_ conversations: [Conversation]) {
+        for conversation in conversations {
+            guard let lastMessage = MessagesData.getMessages(from: conversation.name)?.last else {
+                conversation.hasUnreadMessages = false
+                continue
+            }
+            conversation.message = lastMessage.text
+            conversation.date = lastMessage.datetime
+        }
+    }
+    
+ 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToConversation"{
             let VC = segue.destination as? ConversationViewController
             if selectedIndexPath?.section == 0 {
-                let conversation: (String, String?, Date?, Bool, Bool)
+                let conversation: Conversation
                 conversation = onlineConv[(selectedIndexPath?.row)!]
-                VC?.name = conversation.0
+                VC?.name = conversation.name
             }
             else {
-                let conversation: (String, String?, Date?, Bool, Bool)
-                conversation = onlineConv[(selectedIndexPath?.row)!]
-                VC?.name = conversation.0
+                let conversation: Conversation
+                conversation = offlineConv[(selectedIndexPath?.row)!]
+                VC?.name = conversation.name
             }
         }
         else if segue.identifier == "Profile" {
@@ -98,7 +132,7 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ConversationsListCell
         
-        var conversation: (String, String?, Date?, Bool, Bool)
+        var conversation: Conversation
         
         if indexPath.section == 0 {
             conversation = onlineConv[indexPath.row]
@@ -107,11 +141,12 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
         }
         
         cell.configure(
-            name: conversation.0,
-            message: conversation.1,
-            date: conversation.2,
-            online: conversation.3,
-            hasUnreadMessages: conversation.4)
+            name: conversation.name,
+            message: conversation.message,
+            date: conversation.date,
+            online: conversation.online,
+            hasUnreadMessages: conversation.hasUnreadMessages,
+            peerId: conversation.peerId)
         
         return cell
     }

@@ -8,18 +8,29 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController {
+class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var conversationTable: UITableView!
-    var msgArray: [(String, Bool)] = []
+    var msgArray: [Message] = []
     var name: String?
+    var y = 0.0
+    
+    @IBOutlet var sendButton: UIButton!
+    @IBOutlet var newMessage: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = name
 
-        msgArray = randomArray()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        self.conversationTable.addGestureRecognizer(tap)
+        
+//        msgArray = randomArray()
+        newMessage.delegate = self
         
         conversationTable.dataSource = self
         conversationTable.delegate = self
@@ -32,8 +43,104 @@ class ConversationViewController: UIViewController {
         conversationTable.register(nib, forCellReuseIdentifier: "Cell")
         let nib2 = UINib(nibName: "ConversationTableViewMyCell", bundle: nil)
         conversationTable.register(nib2, forCellReuseIdentifier: "MyCell")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataCell), name: Notification.Name.needReloadData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userBecomeOnline), name: Notification.Name.becomeOnline, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userBecomeOffline), name: Notification.Name.becomeOffline, object: nil)
     }
 
+    
+    @objc func reloadDataCell() {
+//        onlineConv = communicationManager.onlineConvs
+//        offlineConv = communicationManager.offlineConvs
+//        updateConversations(onlineConv)
+//        updateConversations(offlineConv)
+//
+//        DispatchQueue.main.async {
+//            self.convTable.reloadData()
+//        }
+    }
+    
+    @objc func userBecomeOffline() {
+        DispatchQueue.main.async {
+            self.sendButton.isEnabled = false
+            self.sendButton.alpha = 0.5
+        }
+    }
+    
+    @objc func userBecomeOnline() {
+        DispatchQueue.main.async {
+            self.sendButton.isEnabled = true
+            self.sendButton.alpha = 1
+        }
+    }
+    
+    func updateConversations(_ conversations: [Conversation]) {
+        for conversation in conversations {
+            guard let lastMessage = MessagesData.getMessages(from: conversation.name)?.last else {
+                conversation.hasUnreadMessages = false
+                continue
+            }
+            conversation.message = lastMessage.text
+            conversation.date = lastMessage.datetime
+        }
+    }
+    
+    
+    @IBAction func sendMsg(_ sender: UIButton) {
+        guard let text = newMessage.text,
+            text != "" else { return }
+        
+        newMessage.text = ""
+        
+        MultipeerCommunicator.shared.SendMessage(string: text, to: name!) { (true, error) in
+            self.showAlert(title: "Error", message: error?.localizedDescription)
+        }
+        
+        let outgoingMessage = Message(text: text, msgId: "me")
+        msgArray.append(outgoingMessage)
+        
+        self.conversationTable.reloadData()
+        
+        MessagesData.newMessage(from: name!, message: outgoingMessage)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func hideKeyboard(_ sender: UITapGestureRecognizer) {
+        newMessage.resignFirstResponder()
+    }
+    
+   @objc func keyboardWillShow(sender: NSNotification) {
+//        if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.y = Double(self.view.frame.origin.y)
+//                self.view.frame.origin.y -= keyboardSize.height - 60
+//                self.view.layoutIfNeeded()
+//            })
+//        }
+    }
+    
+   @objc func keyboardWillHide(sender: NSNotification) {
+//        if ((sender.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.view.frame.origin.y = CGFloat(self.y)
+//                self.view.layoutIfNeeded()
+//            })
+//        }
+    }
+    
+    func showAlert(title: String, message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension ConversationViewController: UITableViewDataSource, UITableViewDelegate {
@@ -44,16 +151,17 @@ extension ConversationViewController: UITableViewDataSource, UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var conversation: (String, Bool)
+        var conversation: Message
         conversation = msgArray[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ConversationTableViewCell
-        if (conversation.1) {
+        if ((conversation.messageId) == "me") {
             cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as! ConversationTableViewCell
         }
-        
+
         cell.configure(
-            message: conversation.0)
-        
+            message: msgArray[indexPath.row].text
+        )
+
         return cell
     }
 

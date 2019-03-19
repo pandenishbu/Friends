@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MessageCellConfiguration : class{
+protocol MessageCellConfiguration : class {
     var message : String? {get set}
 }
 

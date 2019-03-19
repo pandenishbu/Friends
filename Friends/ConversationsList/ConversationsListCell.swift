@@ -8,14 +8,6 @@
 
 import UIKit
 
-protocol ConversationsCellConfiguration : class{
-    var name : String? {get set}
-    var message : String? {get set}
-    var date : Date? {get set}
-    var online : Bool {get set}
-    var hasUnreadMessages : Bool {get set}
-}
-
 
 class ConversationsListCell: UITableViewCell {
     
@@ -26,6 +18,7 @@ class ConversationsListCell: UITableViewCell {
     private var dateF: Date?
     private var isUnrMsg: Bool = false
     private var isOnline: Bool = false
+    private var peer: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,20 +36,32 @@ class ConversationsListCell: UITableViewCell {
         message: String?,
         date: Date?,
         online: Bool,
-        hasUnreadMessages: Bool){
+        hasUnreadMessages: Bool,
+        peerId: String){
         self.name = name
         self.message = message
         self.online = online
         self.hasUnreadMessages = hasUnreadMessages
         self.date = date
+        self.peer = peerId
     }
 }
 
 extension ConversationsListCell: ConversationsCellConfiguration {
     
-    var name: String? {
+    var peerId: String {
         get {
-            return self.nameLabel.text
+            return self.peer!
+        }
+        set {
+            self.peer = newValue
+        }
+    }
+    
+
+    var name: String {
+        get {
+            return self.nameLabel.text!
         }
         set {
             self.nameLabel.text = newValue

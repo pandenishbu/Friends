@@ -315,7 +315,7 @@
                         <constraints>
                             <constraint firstItem="nye-gS-dke" firstAttribute="top" secondItem="sLo-n5-6xx" secondAttribute="top" id="JSv-Db-s9H"/>
                             <constraint firstItem="nye-gS-dke" firstAttribute="leading" secondItem="sLo-n5-6xx" secondAttribute="leading" id="QDr-ar-OWA"/>
-                            <constraint firstItem="nye-gS-dke" firstAttribute="bottom" secondItem="sLo-n5-6xx" secondAttribute="bottom" id="SMB-K4-C42"/>
+                            <constraint firstItem="sLo-n5-6xx" firstAttribute="bottom" secondItem="nye-gS-dke" secondAttribute="bottom" id="crE-nw-siE"/>
                             <constraint firstItem="nye-gS-dke" firstAttribute="trailing" secondItem="sLo-n5-6xx" secondAttribute="trailing" id="qQT-iL-z7S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sLo-n5-6xx"/>
@@ -352,16 +352,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nGl-SV-mli">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge8-c8-MxB">
+                                <rect key="frame" x="0.0" y="454" width="320" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aiw-SO-FXX">
+                                        <rect key="frame" x="12" y="6" width="246" height="38"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g74-LS-NQ6">
+                                        <rect key="frame" x="270" y="6" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="g74-LS-NQ6" secondAttribute="height" multiplier="1:1" id="wX5-8k-dcP"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <state key="normal" image="next">
+                                            <color key="titleColor" red="0.086274509799999996" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendMsg:" destination="bpg-SG-fRj" eventType="touchUpInside" id="0Fs-d9-gqw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="aiw-SO-FXX" secondAttribute="bottom" constant="6" id="9bG-1M-dzf"/>
+                                    <constraint firstItem="aiw-SO-FXX" firstAttribute="leading" secondItem="ge8-c8-MxB" secondAttribute="leading" constant="12" id="EMS-LX-dGC"/>
+                                    <constraint firstAttribute="height" constant="50" id="KQC-Pb-F9P"/>
+                                    <constraint firstItem="aiw-SO-FXX" firstAttribute="top" secondItem="ge8-c8-MxB" secondAttribute="top" constant="6" id="Oy6-OI-Z78"/>
+                                    <constraint firstItem="g74-LS-NQ6" firstAttribute="leading" secondItem="aiw-SO-FXX" secondAttribute="trailing" constant="12" id="Prc-Tg-GL9"/>
+                                    <constraint firstAttribute="trailing" secondItem="g74-LS-NQ6" secondAttribute="trailing" constant="12" id="eAV-Wz-tEj"/>
+                                    <constraint firstItem="g74-LS-NQ6" firstAttribute="top" secondItem="ge8-c8-MxB" secondAttribute="top" constant="6" id="hQe-YU-PwF"/>
+                                    <constraint firstAttribute="bottom" secondItem="g74-LS-NQ6" secondAttribute="bottom" constant="6" id="k5z-Ie-gbP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="nGl-SV-mli" firstAttribute="bottom" secondItem="fNz-G5-xHV" secondAttribute="bottom" id="Rot-zK-JFG"/>
+                            <constraint firstItem="fNz-G5-xHV" firstAttribute="bottom" secondItem="ge8-c8-MxB" secondAttribute="bottom" id="Jnn-iD-iGy"/>
+                            <constraint firstItem="ge8-c8-MxB" firstAttribute="top" secondItem="nGl-SV-mli" secondAttribute="bottom" id="fmP-xa-Tpc"/>
                             <constraint firstItem="nGl-SV-mli" firstAttribute="top" secondItem="fNz-G5-xHV" secondAttribute="top" id="iN5-vK-45P"/>
                             <constraint firstItem="nGl-SV-mli" firstAttribute="leading" secondItem="fNz-G5-xHV" secondAttribute="leading" id="joj-ZG-zB4"/>
+                            <constraint firstItem="ge8-c8-MxB" firstAttribute="leading" secondItem="fNz-G5-xHV" secondAttribute="leading" id="l5g-E8-zGd"/>
                             <constraint firstItem="nGl-SV-mli" firstAttribute="trailing" secondItem="fNz-G5-xHV" secondAttribute="trailing" id="sK9-fl-M1t"/>
+                            <constraint firstItem="ge8-c8-MxB" firstAttribute="trailing" secondItem="fNz-G5-xHV" secondAttribute="trailing" id="yre-4k-Aug"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fNz-G5-xHV"/>
                     </view>
@@ -370,6 +408,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="conversationTable" destination="nGl-SV-mli" id="5FO-A5-hj0"/>
+                        <outlet property="newMessage" destination="aiw-SO-FXX" id="zxE-cC-2hb"/>
+                        <outlet property="sendButton" destination="g74-LS-NQ6" id="BjR-f7-YBv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ocf-7e-K2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -380,6 +420,7 @@
     <resources>
         <image name="arrow" width="50" height="50"/>
         <image name="icon-person" width="24" height="24"/>
+        <image name="next" width="50" height="50"/>
         <image name="paint" width="24" height="24"/>
         <image name="placeholder-user" width="600" height="600"/>
         <image name="slr-camera-2-xxl" width="256" height="256"/>
