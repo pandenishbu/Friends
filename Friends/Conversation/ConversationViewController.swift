@@ -13,7 +13,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var conversationTable: UITableView!
     var msgArray: [Message] = []
     var name: String?
+    var id: String?
     var y = 0.0
+    
+    weak var multipeerCommunicator: MultipeerCommunicator?
     
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var newMessage: UITextField!
@@ -51,14 +54,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     
     @objc func reloadDataCell() {
-//        onlineConv = communicationManager.onlineConvs
-//        offlineConv = communicationManager.offlineConvs
-//        updateConversations(onlineConv)
-//        updateConversations(offlineConv)
-//
-//        DispatchQueue.main.async {
-//            self.convTable.reloadData()
-//        }
+        msgArray = MessagesData.getMessages(from: name!)!
+        DispatchQueue.main.async {
+            self.conversationTable.reloadData()
+        }
     }
     
     @objc func userBecomeOffline() {
@@ -93,11 +92,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         
         newMessage.text = ""
         
-        MultipeerCommunicator.shared.SendMessage(string: text, to: name!) { (true, error) in
+        multipeerCommunicator!.SendMessage(string: text, to: id!) { (true, error) in
             self.showAlert(title: "Error", message: error?.localizedDescription)
         }
         
-        let outgoingMessage = Message(text: text, msgId: "me")
+        let outgoingMessage = Message(text: text, msgId: name!, type: true)
         msgArray.append(outgoingMessage)
         
         self.conversationTable.reloadData()
@@ -154,7 +153,7 @@ extension ConversationViewController: UITableViewDataSource, UITableViewDelegate
         var conversation: Message
         conversation = msgArray[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ConversationTableViewCell
-        if ((conversation.messageId) == "me") {
+        if conversation.type  {
             cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as! ConversationTableViewCell
         }
 

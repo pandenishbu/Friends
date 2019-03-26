@@ -96,11 +96,15 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
                 let conversation: Conversation
                 conversation = onlineConv[(selectedIndexPath?.row)!]
                 VC?.name = conversation.name
+                VC?.id = conversation.peerId
+                VC?.multipeerCommunicator = multipeerCommunicator
             }
             else {
                 let conversation: Conversation
                 conversation = offlineConv[(selectedIndexPath?.row)!]
                 VC?.name = conversation.name
+                VC?.id = conversation.peerId
+                VC?.multipeerCommunicator = multipeerCommunicator
             }
         }
         else if segue.identifier == "Profile" {

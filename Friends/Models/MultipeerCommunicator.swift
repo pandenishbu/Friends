@@ -20,12 +20,13 @@ struct Message: Codable {
     var text: String
     var messageId: String
     var datetime: Date
-    
+    var type: Bool
 
-    init(text: String, msgId: String){
+    init(text: String, msgId: String, type: Bool){
         self.text = text
         self.messageId = msgId
         self.datetime = Date(timeIntervalSinceNow: 0)
+        self.type = type
     }
 }
 
@@ -41,7 +42,7 @@ class MultipeerCommunicator: NSObject, Communicator{
     var browser: MCNearbyServiceBrowser!
     var advertiser: MCNearbyServiceAdvertiser!
     
-    var sessions = [String: MCSession]()
+    var sessions: [String: MCSession] = [:]
     
     var delegate: CommunicatorDelegate? {
         get{
@@ -74,7 +75,7 @@ class MultipeerCommunicator: NSObject, Communicator{
         
         super.init()
 
-        myPeerID = MCPeerID(displayName: "Mariya")
+        myPeerID = MCPeerID(displayName: "Mariya Milchenko")
         
         advertiser = MCNearbyServiceAdvertiser(peer: myPeerID,
                                                discoveryInfo: ["userName": "Mariya Milchenko"],
@@ -90,22 +91,19 @@ class MultipeerCommunicator: NSObject, Communicator{
     }
     
     func SendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ()?)) {
-        let msg = Message(text: string, msgId: generateMessageId())
+        let msg = Message(text: string, msgId: generateMessageId(), type: true)
         
         guard let session = findSession(for: userID) else { return }
         
         let data = try! JSONEncoder().encode(msg)
         
-        if session.connectedPeers.count > 0 {
-            do {
-                try session.send(data, toPeers: [MCPeerID(displayName: userID)], with: .reliable)
-            }
-            catch let error {
-                print("sending error: \(error)")
-            }
-        } else {
-            print("no peers")
+        do {
+            try session.send(data, toPeers: [MCPeerID(displayName: userID)], with: .reliable)
         }
+        catch let error {
+            print("sending error: \(error)")
+        }
+        
         
     }
     
@@ -113,7 +111,7 @@ class MultipeerCommunicator: NSObject, Communicator{
         if let session = (sessions as NSDictionary).value(forKey: userID) as? MCSession {
             return session
         }
-        
+        print(sessions)
         return nil
     }
     

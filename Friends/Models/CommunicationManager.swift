@@ -25,14 +25,11 @@ protocol CommunicatorDelegate: class {
 
 class CommunicationManager : CommunicatorDelegate{
     
-    
-    var peers: [Peer] = []
-    var offlinPeers: [Peer] = []
     var onlineConvs: [Conversation] = []
     var offlineConvs: [Conversation] = []
     
     func didFoundUser(userID: String, userName: String?) {
-        offlineConvs.removeAll{$0.name == userID}
+        offlineConvs.removeAll{$0.name == userName}
         let lastMessage = MessagesData.getMessages(from: userName!)?.last?.text
         let conv = Conversation.init(name: userName!, message: lastMessage, date: nil, online: true, hasUnreadMessages: false, peerId: userID)
         onlineConvs.append(conv)
@@ -58,7 +55,7 @@ class CommunicationManager : CommunicatorDelegate{
     }
     
     func didReiciveMessage(text: String, fromUser: String, toUser: String) {
-        let incomingMessage = Message(text: text, msgId:fromUser)
+        let incomingMessage = Message(text: text, msgId:fromUser, type: false)
         MessagesData.newMessage(from: fromUser, message: incomingMessage)
         
         NotificationCenter.default.post(name: .needReloadData, object: nil)
