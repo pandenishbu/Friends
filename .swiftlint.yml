@@ -1,0 +1,6 @@
+# Friends/.swiftlint.yml
+line_length: 200
+large_tuple: 3
+function_parameter_count: 6
+
+use_nested_configs: true
