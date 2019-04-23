@@ -17,6 +17,9 @@
 		0550050A2211FC0200DBD501 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055005092211FC0200DBD501 /* Log.swift */; };
 		05584842225E751000769592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05584841225E751000769592 /* Default-568h@2x.png */; };
 		057397DC2219C2F9008EBAB0 /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057397DB2219C2F9008EBAB0 /* DesignableButton.swift */; };
+		057613D5226F67DF00DEFEFF /* LogoAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057613D4226F67DF00DEFEFF /* LogoAnimation.swift */; };
+		057613D7226F6FA000DEFEFF /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057613D6226F6FA000DEFEFF /* Animation.swift */; };
+		057613D9226F715300DEFEFF /* EventCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057613D8226F715300DEFEFF /* EventCacher.swift */; };
 		058A07462219BCD20043CFAB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058A07452219BCD20043CFAB /* ProfileViewController.swift */; };
 		0598C65E2241207400BD41DA /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0598C65D2241207400BD41DA /* MultipeerCommunicator.swift */; };
 		0598C6602241294400BD41DA /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0598C65F2241294400BD41DA /* CommunicationManager.swift */; };
@@ -64,6 +67,9 @@
 		055005092211FC0200DBD501 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		05584841225E751000769592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		057397DB2219C2F9008EBAB0 /* DesignableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
+		057613D4226F67DF00DEFEFF /* LogoAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoAnimation.swift; sourceTree = "<group>"; };
+		057613D6226F6FA000DEFEFF /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		057613D8226F715300DEFEFF /* EventCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCacher.swift; sourceTree = "<group>"; };
 		058A07452219BCD20043CFAB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0598C65D2241207400BD41DA /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		0598C65F2241294400BD41DA /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
@@ -138,6 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				055004E62211F5ED00DBD501 /* AppDelegate.swift */,
+				057613D8226F715300DEFEFF /* EventCacher.swift */,
+				055004F52211F5EF00DBD501 /* Info.plist */,
+				05F9B198222C05D400886784 /* Friends-Bridging-Header.h */,
 				05584837225E2B9200769592 /* Presentation Layer */,
 				0558483A225E395E00769592 /* Service Layer */,
 				0598C66E2242AFDB00BD41DA /* Core Layer */,
@@ -158,6 +167,7 @@
 		05584837225E2B9200769592 /* Presentation Layer */ = {
 			isa = PBXGroup;
 			children = (
+				057613D3226F679B00DEFEFF /* Animation */,
 				0558483B225E39D100769592 /* UI Elemets */,
 				0558483C225E39F200769592 /* Modules */,
 			);
@@ -167,8 +177,6 @@
 		05584839225E2C6C00769592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				05F9B198222C05D400886784 /* Friends-Bridging-Header.h */,
-				055004F52211F5EF00DBD501 /* Info.plist */,
 				055004F02211F5EF00DBD501 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -249,6 +257,15 @@
 				05F9B19A222C05D500886784 /* ThemesViewController.m */,
 			);
 			path = ThemesViewController;
+			sourceTree = "<group>";
+		};
+		057613D3226F679B00DEFEFF /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				057613D4226F67DF00DEFEFF /* LogoAnimation.swift */,
+				057613D6226F6FA000DEFEFF /* Animation.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		0598C66E2242AFDB00BD41DA /* Core Layer */ = {
@@ -457,8 +474,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				057613D7226F6FA000DEFEFF /* Animation.swift in Sources */,
+				057613D9226F715300DEFEFF /* EventCacher.swift in Sources */,
 				05A89445222347B60053B42D /* ConversationsListCell.swift in Sources */,
 				057397DC2219C2F9008EBAB0 /* DesignableButton.swift in Sources */,
+				057613D5226F67DF00DEFEFF /* LogoAnimation.swift in Sources */,
 				05F9B19B222C05D500886784 /* ThemesViewController.m in Sources */,
 				05E4E40522247ABA001E7B0F /* ConversationViewController.swift in Sources */,
 				05E4E40822247AD2001E7B0F /* ConversationTableViewCell.swift in Sources */,
@@ -655,7 +675,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Conversation/Friends-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Friends-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -682,7 +702,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.Panda.Friends2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Conversation/Friends-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Friends/Friends-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

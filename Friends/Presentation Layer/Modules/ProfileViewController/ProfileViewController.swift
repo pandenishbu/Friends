@@ -57,6 +57,9 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
 
+        self.name.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        self.descr.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
         self.editingMode = false
         self.saveButton.isEnabled = false
         self.loadData()
@@ -213,8 +216,28 @@ extension ProfileViewController: UITextFieldDelegate, UITextViewDelegate {
         return true
     }
 
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if !(saveButton.isEnabled) {
+            saveButton.isEnabled = true
+            self.animation()
+        }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+
+    func animation() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, animations: {
+            self.saveButton.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            let xOrigin = self.saveButton.frame.origin.x
+            let yOrigin = self.saveButton.frame.origin.y
+            let width = self.saveButton.frame.width
+            let height = self.saveButton.frame.height
+            self.saveButton.frame = CGRect(x: xOrigin+width*0.15/2,
+                                           y: yOrigin+height*0.15/2,
+                                           width: width-width*0.15,
+                                           height: height-height*0.15)
+        }, completion: nil)
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

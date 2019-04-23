@@ -12,9 +12,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var conversationTable: UITableView!
     var msgArray: [Message] = []
-    var name: String?
-    var idConv: String?
     var heigh = 0.0
+    var conversation: Conversation!
 
     weak var multipeerCommunicator: MultipeerCommunicator?
 
@@ -24,22 +23,21 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = name
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
+        label.textAlignment = .center
+        label.text = conversation.name
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(sender:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(sender:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        self.navigationItem.titleView = label
+
+        let origImage = UIImage(named: "next")
+        let tintedImage = origImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        sendButton.setImage(tintedImage, for: .normal)
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         self.conversationTable.addGestureRecognizer(tap)
 
-//        msgArray = randomArray()
         newMessage.delegate = self
+        newMessage.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         conversationTable.dataSource = self
         conversationTable.delegate = self
@@ -66,10 +64,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
                                                name: Notification.Name.becomeOffline,
                                                object: nil)
         reloadDataCell()
+        if conversation.online {
+            userBecomeOnline()
+        }
+
     }
 
     @objc func reloadDataCell() {
-        msgArray = MessagesData.getMessages(from: name!) ?? []
+        msgArray = MessagesData.getMessages(from: conversation.name) ?? []
         DispatchQueue.main.async {
             self.conversationTable.reloadData()
         }
@@ -77,13 +79,23 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     @objc func userBecomeOffline() {
         DispatchQueue.main.async {
-            self.sendButton.isEnabled = false
-            self.sendButton.alpha = 0.5
+            Animation.animateButton(button: self.sendButton, isEnable: false)
+            if let label = self.navigationItem.titleView {
+                Animation.animateTitle(label: (label as? UILabel)!, isOnline: false)
+            }
         }
     }
 
     @objc func userBecomeOnline() {
         DispatchQueue.main.async {
+            if self.newMessage.text != "" {
+                Animation.animateButton(button: self.sendButton, isEnable: true)
+            } else {
+                Animation.animateButton(button: self.sendButton, isEnable: false)
+            }
+            if let label = self.navigationItem.titleView {
+                Animation.animateTitle(label: (label as? UILabel)!, isOnline: true)
+            }
             self.sendButton.isEnabled = true
             self.sendButton.alpha = 1
         }
@@ -106,15 +118,16 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
         newMessage.text = ""
 
-        multipeerCommunicator!.sendMessage(string: text, to: idConv!) { (_, error) in
+        multipeerCommunicator!.sendMessage(string: text, to: conversation.peerId) { (_, error) in
                 self.showAlert(title: "Error", message: error?.localizedDescription)
         }
-        let outgoingMessage = Message(text: text, msgId: name!, type: true)
+        let outgoingMessage = Message(text: text, msgId: conversation.name, type: true)
         msgArray.append(outgoingMessage)
 
         self.conversationTable.reloadData()
 
-        MessagesData.newMessage(from: name!, message: outgoingMessage)
+        MessagesData.newMessage(from: conversation.name, message: outgoingMessage)
+        Animation.animateButton(button: self.sendButton, isEnable: false)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -122,27 +135,18 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField == self.newMessage {
+            if textField.text != "" && (!self.sendButton.isEnabled) {
+                Animation.animateButton(button: self.sendButton, isEnable: true)
+            } else if textField.text == "" && (self.sendButton.isEnabled) {
+                Animation.animateButton(button: self.sendButton, isEnable: false)
+            }
+        }
+    }
+
     @objc func hideKeyboard(_ sender: UITapGestureRecognizer) {
         newMessage.resignFirstResponder()
-    }
-
-   @objc func keyboardWillShow(sender: NSNotification) {
-//        if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                self.y = Double(self.view.frame.origin.y)
-//                self.view.frame.origin.y -= keyboardSize.height - 60
-//                self.view.layoutIfNeeded()
-//            })
-//        }
-    }
-
-   @objc func keyboardWillHide(sender: NSNotification) {
-//        if ((sender.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                self.view.frame.origin.y = CGFloat(self.y)
-//                self.view.layoutIfNeeded()
-//            })
-//        }
     }
 
     func showAlert(title: String, message: String?) {

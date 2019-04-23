@@ -137,8 +137,11 @@ extension MultipeerCommunicator: MCBrowserViewControllerDelegate {
         let session = MCSession(peer: myPeerID)
         session.delegate = self
         sessions[peerID.displayName] = session
-
+        guard let userName = info?["userName"] else {
+            return
+        }
         browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
+        delegate?.didFoundUser(userID: peerID.displayName, userName: userName)
     }
 
 }
@@ -159,7 +162,7 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
             session.delegate = self
             sessions[peerID.displayName] = session
         }
-        delegate?.didFoundUser(userID: peerID.displayName, userName: advertiser.discoveryInfo?["userName"])
+//        delegate?.didFoundUser(userID: peerID.displayName, userName: advertiser.discoveryInfo?["userName"])
     }
 }
 

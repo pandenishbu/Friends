@@ -105,9 +105,9 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
     }
 
     @objc func reloadData() {
-//        onlineConv = communicationManager.onlineConvs
+        onlineConv = communicationManager.onlineConvs
         offlineConv = communicationManager.offlineConvs
-//        updateConversations(onlineConv)
+        updateConversations(onlineConv)
         updateConversations(offlineConv)
 
         DispatchQueue.main.async {
@@ -130,16 +130,10 @@ class ConversationsListViewController: UIViewController, ThemesViewControllerDel
         if segue.identifier == "ToConversation"{
             let vcConv = segue.destination as? ConversationViewController
             if selectedIndexPath?.section == 0 {
-                let conversation: Conversation
-                conversation = onlineConv[(selectedIndexPath?.row)!]
-                vcConv?.name = conversation.name
-                vcConv?.idConv = conversation.peerId
+                vcConv?.conversation = onlineConv[(selectedIndexPath?.row)!]
                 vcConv?.multipeerCommunicator = multipeerCommunicator
             } else {
-                let conversation: Conversation
-                conversation = offlineConv[(selectedIndexPath?.row)!]
-                vcConv?.name = conversation.name
-                vcConv?.idConv = conversation.peerId
+                vcConv?.conversation = onlineConv[(selectedIndexPath?.row)!]
                 vcConv?.multipeerCommunicator = multipeerCommunicator
             }
         } else if segue.identifier == "Profile" {

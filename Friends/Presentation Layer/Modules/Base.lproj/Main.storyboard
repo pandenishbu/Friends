@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCa-OC-5rX" customClass="DesignableButton" customModule="Friends" customModuleProvider="target">
-                                <rect key="frame" x="16" y="508" width="288" height="44"/>
+                                <rect key="frame" x="25" y="508" width="270" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cQy-9x-FVe"/>
@@ -54,7 +54,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ty-bw-Ah6" customClass="DesignableButton" customModule="Friends" customModuleProvider="target">
-                                <rect key="frame" x="16" y="508" width="288" height="44"/>
+                                <rect key="frame" x="25" y="508" width="270" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="QF4-uy-DX7"/>
@@ -120,16 +120,16 @@
                             <constraint firstItem="S6R-af-LCo" firstAttribute="top" secondItem="33q-IL-o5P" secondAttribute="bottom" constant="8" id="Aoa-Qf-UF4"/>
                             <constraint firstItem="33q-IL-o5P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ati-BJ-RZO"/>
                             <constraint firstItem="33q-IL-o5P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="C0c-cU-1VZ"/>
-                            <constraint firstItem="QCa-OC-5rX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="C7v-NU-ClK"/>
+                            <constraint firstItem="QCa-OC-5rX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="C7v-NU-ClK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Ty-bw-Ah6" secondAttribute="bottom" constant="16" id="GHU-K2-jZG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QCa-OC-5rX" secondAttribute="trailing" constant="16" id="HhC-dh-caO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Ty-bw-Ah6" secondAttribute="trailing" constant="16" id="K0s-Jb-CCD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QCa-OC-5rX" secondAttribute="trailing" constant="25" id="HhC-dh-caO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Ty-bw-Ah6" secondAttribute="trailing" constant="25" id="K0s-Jb-CCD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="33q-IL-o5P" secondAttribute="trailing" constant="16" id="LbZ-SI-0ZW"/>
                             <constraint firstItem="S6R-af-LCo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="P2U-cQ-nJI"/>
                             <constraint firstItem="QCa-OC-5rX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mlF-qd-pMN" secondAttribute="bottom" constant="8" id="PGH-kZ-CQJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S6R-af-LCo" secondAttribute="trailing" constant="16" id="QIB-Ua-60Q"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jPt-wC-Ahg" secondAttribute="trailing" constant="16" id="SFq-B1-LyB"/>
-                            <constraint firstItem="6Ty-bw-Ah6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="aGt-KJ-LQg"/>
+                            <constraint firstItem="6Ty-bw-Ah6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="aGt-KJ-LQg"/>
                             <constraint firstItem="mlF-qd-pMN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="kdG-S8-FFH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QCa-OC-5rX" secondAttribute="bottom" constant="16" id="lR4-l1-lJe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mlF-qd-pMN" secondAttribute="trailing" constant="16" id="lxV-86-f3A"/>
